@@ -1,0 +1,130 @@
+{
+  "StatusCode": 0,
+  "Message": "Success",
+  "Data": {
+    "Guest": {
+      "Booking": [],
+      "Id": 8,
+      "CreateAt": null,
+      "UpdateAt": null,
+      "FirstName": "Tùng",
+      "LastName": "Đặng Hữu",
+      "Gender": null,
+      "Email": "Huuthang2003@gmail.com",
+      "PhoneNumber": "0833897057",
+      "checkInDate": "2024-06-17",
+      "checkOutDate": "2024-06-19"
+    },
+    "Room": {
+      "Booking": [],
+      "CleaningRoom": [],
+      "Employee": null,
+      "RoomType": {
+        "Booking": [],
+        "Room": [],
+        "RoomTypeItem": [],
+        "Id": 5,
+        "CreateAt": "2024-05-06T10:00:00",
+        "UpdateAt": "2024-05-06T10:00:00",
+        "Name": "Double",
+        "Price": 120,
+        "MaximumCapacity": 2,
+        "NumberOfChildren": 0,
+        "NumberOfAdults": 2,
+        "Description": "Double bed room",
+        "Quantity": 6
+      },
+      "Id": 19,
+      "CreateAt": "2024-05-06T10:00:00",
+      "UpdateAt": "2024-05-06T10:00:00",
+      "RoomNumber": "403",
+      "RoomTypeId": 5,
+      "Floor": "4",
+      "Status": 1,
+      "EmployeeId": 16
+    },
+    "RoomType": {
+      "Booking": [],
+      "Room": [
+        {
+          "Booking": [],
+          "CleaningRoom": [],
+          "Employee": null,
+          "Id": 19,
+          "CreateAt": "2024-05-06T10:00:00",
+          "UpdateAt": "2024-05-06T10:00:00",
+          "RoomNumber": "403",
+          "RoomTypeId": 5,
+          "Floor": "4",
+          "Status": 1,
+          "EmployeeId": 16
+        }
+      ],
+      "RoomTypeItem": [],
+      "Id": 5,
+      "CreateAt": "2024-05-06T10:00:00",
+      "UpdateAt": "2024-05-06T10:00:00",
+      "Name": "Double",
+      "Price": 120,
+      "MaximumCapacity": 2,
+      "NumberOfChildren": 0,
+      "NumberOfAdults": 2,
+      "Description": "Double bed room",
+      "Quantity": 6
+    },
+    "BookingItem": [
+      {
+        "Item": {
+          "BookingItem": [],
+          "Category": null,
+          "RoomTypeItem": [],
+          "Id": 1,
+          "CreateAt": "2024-05-06T10:00:00",
+          "UpdateAt": "2024-05-06T10:00:00",
+          "ProductName": "Nước ngọt lon",
+          "ProductPrice": 20.0,
+          "CategoryId": 4
+        },
+        "Id": 1,
+        "BookingId": 38,
+        "ItemId": 1,
+        "Quantity": 2,
+        "TotalPrice": 40.0,
+        "Note": null,
+        "CreateAt": null,
+        "UpdateAt": null
+      },
+      {
+        "Item": {
+          "BookingItem": [],
+          "Category": null,
+          "RoomTypeItem": [],
+          "Id": 2,
+          "CreateAt": "2024-05-06T10:00:00",
+          "UpdateAt": "2024-05-06T10:00:00",
+          "ProductName": "Bia lon",
+          "ProductPrice": 30.0,
+          "CategoryId": 4
+        },
+        "Id": 3,
+        "BookingId": 38,
+        "ItemId": 2,
+        "Quantity": 3,
+        "TotalPrice": 90.0,
+        "Note": null,
+        "CreateAt": "2024-05-20T15:12:58.7166667",
+        "UpdateAt": null
+      }
+    ],
+    "Payment": [],
+    "Id": 38,
+    "CreateAt": "2024-05-07 10:31:35",
+    "UpdateAt": null,
+    "RoomTypeId": 5,
+    "RoomId": 19,
+    "CustomerId": 8,
+    "Status": 4,
+    "DeleteAt": null,
+    "HotelId": 1
+  }
+}
