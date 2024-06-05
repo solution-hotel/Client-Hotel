@@ -16,9 +16,9 @@
   }
 }
 
-body {
+/* body {
   background: radial-gradient(rgb(229, 229, 223), skyblue);
-}
+} */
 
 @layer utilities {
   .text-balance {

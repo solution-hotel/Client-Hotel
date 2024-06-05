@@ -9,9 +9,11 @@ interface BookingItem {
 }
 
 interface Item {
-    BookingItem: string,
+    RoomTypeItem: [],
+    BookingItem: [],
+    // BookingItem: string,
     Category: string,
-    RoomTypeItem: string,
+    // RoomTypeItem: string,
     Id: number,
     CreateAt: string,
     UpdateAt: string,
@@ -30,16 +32,32 @@ interface Guest {
     Gender: string | null;
     Email: string;
     PhoneNumber: string;
-    checkInDate: string;
-    checkOutDate: string;
+}
+
+interface Room {
+    Booking: [],
+    CleaningRoom: [],
+    Employee: null,
+    RoomType: null,
+    Id: number,
+    CreateAt: string,
+    UpdateAt: string,
+    RoomNumber: string,
+    RoomTypeId: number,
+    Floor: string,
+    Status: number,
+    EmployeeId: number
 }
 
 interface RoomType {
+    Booking: [],
+    Room: [],
+    RoomTypeItem: [],
     Id: number,
     CreateAt: string,
     UpdateAt: string,
     Name: string,
-    price: number,
+    Price: number,
     MaximumCapacity: number,
     NumberOfChildren: number,
     NumberOfAdults: number,
@@ -53,8 +71,6 @@ interface BookingData {
     Id: number;
     bookingCode: string;
     customerName: string;
-    // phoneNumber: string;
-    // email: string;
     CreateAt: string;
     roomType: string;
     roomPrice: number;
@@ -69,13 +85,15 @@ interface BookingData {
     notes: string[];
     contactPhone: string;
     contactEmail: string;
+    checkInDate: string;
+    checkOutDate: string;
 }
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const useBookingData = (bookingId: number) => {
-    // const { data, error } = useSWR<BookingData>(`https://api-pnv.bluejaypos.vn/booking/${bookingId}`, fetcher);
-    const { data, error } = useSWR<BookingData>(`http://localhost:3001/Data`, fetcher);
+    const { data, error } = useSWR<BookingData>(`https://api-pnv.bluejaypos.vn/booking/36`, fetcher);
+    // const { data, error } = useSWR<BookingData>(`http://localhost:3001/Data`, fetcher);
 
     return {
         bookingData: data,

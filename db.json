@@ -7,7 +7,7 @@
       "Id": 8,
       "CreateAt": null,
       "UpdateAt": null,
-      "FirstName": "Tùng",
+      "FirstName": "Thắng",
       "LastName": "Đặng Hữu",
       "Gender": null,
       "Email": "Huuthang2003@gmail.com",
@@ -27,7 +27,7 @@
         "CreateAt": "2024-05-06T10:00:00",
         "UpdateAt": "2024-05-06T10:00:00",
         "Name": "Double",
-        "Price": 120,
+        "Price": 120000,
         "MaximumCapacity": 2,
         "NumberOfChildren": 0,
         "NumberOfAdults": 2,
@@ -65,7 +65,7 @@
       "CreateAt": "2024-05-06T10:00:00",
       "UpdateAt": "2024-05-06T10:00:00",
       "Name": "Double",
-      "Price": 120,
+      "Price": 120000,
       "MaximumCapacity": 2,
       "NumberOfChildren": 0,
       "NumberOfAdults": 2,
@@ -82,14 +82,14 @@
           "CreateAt": "2024-05-06T10:00:00",
           "UpdateAt": "2024-05-06T10:00:00",
           "ProductName": "Nước ngọt lon",
-          "ProductPrice": 20.0,
+          "ProductPrice": 20000,
           "CategoryId": 4
         },
         "Id": 1,
         "BookingId": 38,
         "ItemId": 1,
         "Quantity": 2,
-        "TotalPrice": 40.0,
+        "TotalPrice": 40000,
         "Note": null,
         "CreateAt": null,
         "UpdateAt": null
@@ -103,14 +103,14 @@
           "CreateAt": "2024-05-06T10:00:00",
           "UpdateAt": "2024-05-06T10:00:00",
           "ProductName": "Bia lon",
-          "ProductPrice": 30.0,
+          "ProductPrice": 30000,
           "CategoryId": 4
         },
         "Id": 3,
         "BookingId": 38,
         "ItemId": 2,
         "Quantity": 3,
-        "TotalPrice": 90.0,
+        "TotalPrice": 90000,
         "Note": null,
         "CreateAt": "2024-05-20T15:12:58.7166667",
         "UpdateAt": null
@@ -125,6 +125,9 @@
     "CustomerId": 8,
     "Status": 4,
     "DeleteAt": null,
-    "HotelId": 1
+    "HotelId": 1,
+    "RoomCost": 240000,
+    "ServiceCost": 130000,
+    "TotalCost": 370000
   }
 }
