@@ -23,6 +23,7 @@ export default function RootLayout({
         <HeaderBooking />
         <HeaderMain />
         <HeaderTable />
+        
         {children}
         {/* <footer style={{ backgroundColor: 'lightblue'}}>
           <p>Footer</p>
