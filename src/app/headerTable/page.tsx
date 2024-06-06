@@ -6,6 +6,7 @@ import { BsChatFill } from 'react-icons/bs';
 import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from "@nextui-org/table";
 import useBookingData from '../../hooks/useBookingData';
 import { format } from "date-fns";
+import data from '../../../db.json';
 
 interface HeaderTableProps {
     id: number;
@@ -25,11 +26,11 @@ const HeaderTable: React.FC<HeaderTableProps> = ({ id }) => {
 
     if (!bookingData) return null;
 
-    const totalServiceCost = bookingData.Data.BookingItem.reduce((total, bookingItem) => {
-        return total + (bookingItem.ProductPrice * bookingItem.Quantity);
+    const totalServiceCost = data.Data.BookingItem.reduce((total, bookingItem) => {
+        return total + (bookingItem.Item.ProductPrice * bookingItem.Quantity);
     }, 0);
 
-    const totalCost = bookingData.Data.RoomCost + totalServiceCost;
+    const totalCost = data.Data.RoomCost + totalServiceCost;
 
     return (
         <div className='container'>
@@ -85,18 +86,18 @@ const HeaderTable: React.FC<HeaderTableProps> = ({ id }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {bookingData.Data.BookingItem.length === 0 ? (
+                            {data.Data.BookingItem.length === 0 ? (
                                 <tr>
                                     <td className="border-2 py-5" colSpan={5}>Không có Data</td>
                                 </tr>
                             ) : (
-                                bookingData.Data.BookingItem.map((bookingItem, index) => (
+                                data.Data.BookingItem.map((bookingItem, index) => (
                                     <tr key={index}>
                                         <td className="border-2 py-5">{index + 1}</td>
-                                        <td className="border-2 py-5">{bookingItem.ProductName}</td>
-                                        <td className="border-2 py-5">{bookingItem.ProductPrice} VND</td>
+                                        <td className="border-2 py-5">{bookingItem.Item.ProductName}</td>
+                                        <td className="border-2 py-5">{bookingItem.Item.ProductPrice} VND</td>
                                         <td className="border-2 py-5">{bookingItem.Quantity}</td>
-                                        <td className="border-2 py-5">{bookingItem.ProductPrice * bookingItem.Quantity} VND</td>
+                                        <td className="border-2 py-5">{bookingItem.Item.ProductPrice * bookingItem.Quantity} VND</td>
                                     </tr>
                                 ))
                             )}
@@ -108,7 +109,7 @@ const HeaderTable: React.FC<HeaderTableProps> = ({ id }) => {
                 <div className='' style={{ width: '20%' }}>
                     <div className='flex justify-between '>
                         <div className='font-bold'>Tiền phòng:</div>
-                        <span>{bookingData.Data.RoomCost} VND</span>
+                        <span>{data.Data.RoomCost} VND</span>
                     </div>
 
                     <div className='flex justify-between'>

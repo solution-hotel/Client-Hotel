@@ -23,7 +23,7 @@ const HeaderBooking = () => {
         <p style={{ marginBottom: 5, textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)' }}>Email: info@gmail.com</p>
         <p style={{ marginBottom: 5, textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)' }}>Address: 20 Le Quang Hoa, Hoa Xuan, Cam Le</p>
         <p style={{ marginBottom: 5, textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)' }}>
-          Xem địa chỉ của chúng tôi <Link href='' style={{ color: '#0173BC', textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)' }}>tại đây</Link>
+          Xem địa chỉ của chúng tôi <Link href='https://maps.app.goo.gl/PJbzTM85acP8YDvf7' style={{ color: '#0173BC', textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)' }}>tại đây</Link>
         </p>
         </div>
       </div>

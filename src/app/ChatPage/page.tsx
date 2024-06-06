@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react';
 import { IoCloseSharp } from "react-icons/io5";
 import { IoSend } from "react-icons/io5";
