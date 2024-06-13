@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <main>
       <Suspense fallback={<div>Loading...</div>}>
-        <HeaderTable />
+        {/* <HeaderTable /> */}
       </Suspense>
     </main>
   );

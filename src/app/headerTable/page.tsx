@@ -42,7 +42,7 @@ const HeaderTable = () => {
 
     const totalServiceCost = bookingData && bookingData.Data && Array.isArray(bookingData.Data.BookingItems)
     ? bookingData.Data.BookingItems.reduce((total: number, bookingItem: any) => {
-        return total + (bookingItem.Item.Price * bookingItem.Quantity);
+        return total + (bookingItem.Item?.Price * bookingItem?.Quantity);
     }, 0)
     : 0;
 
@@ -60,40 +60,40 @@ const HeaderTable = () => {
 
     return (
         <div className='container'>
-            {bookingData.Data ? (
+            {bookingData ? (
                 <>
                     <div>
                         <Table className='mt-10 text-center'>
                             <TableHeader className='w-full'>
                                 <TableColumn className='border-2 py-5 bg-[#F3E07B]'>Mã Booking</TableColumn>
-                                <TableColumn className='border-2 font-normal bg-[#F3E07B]'>{bookingData.Data.Id}</TableColumn>
+                                <TableColumn className='border-2 font-normal bg-[#F3E07B]'>{bookingData.Data?.Id || 'N/A'}</TableColumn>
                                 <TableColumn className='border-2 bg-[#F3E07B]'>Tên khách hàng</TableColumn>
-                                <TableColumn className='border-2 font-normal bg-[#F3E07B]'>{bookingData.Data.Guest.LastName} {bookingData.Data.Guest.FirstName}</TableColumn>
+                                <TableColumn className='border-2 font-normal bg-[#F3E07B]'>{bookingData.Data?.Guest?.LastName} {bookingData.Data?.Guest?.FirstName || 'N/A'}</TableColumn>
                             </TableHeader>
                             <TableBody className='justify-center'>
                                 <TableRow key="1">
                                     <TableCell className='border-2 py-5 font-bold'>Số điện thoại</TableCell>
-                                    <TableCell className='border-2 py-5'>{bookingData.Data.Guest.PhoneNumber}</TableCell>
+                                    <TableCell className='border-2 py-5'>{bookingData.Data?.Guest?.PhoneNumber || 'N/A'}</TableCell>
                                     <TableCell className='border-2 py-5 font-bold'>Email</TableCell>
-                                    <TableCell className='border-2 py-5'>{bookingData.Data.Guest.Email}</TableCell>
+                                    <TableCell className='border-2 py-5'>{bookingData.Data?.Guest?.Email || 'N/A'}</TableCell>
                                 </TableRow>
                                 <TableRow key="2">
                                     <TableCell className='border-2 py-5 font-bold'>Ngày nhận phòng</TableCell>
-                                    <TableCell className='border-2 py-5'>{format(new Date(bookingData.Data.CheckinDate), "yyyy-MM-dd")}</TableCell>
+                                    <TableCell className='border-2 py-5'>{bookingData.Data?.CheckinDate ? format(new Date(bookingData.Data.CheckinDate), "yyyy-MM-dd") : 'N/A'}</TableCell>
                                     <TableCell className='border-2 py-5 font-bold'>Ngày trả phòng</TableCell>
-                                    <TableCell className='border-2 py-5'>{format(new Date(bookingData.Data.CheckoutDate), "yyyy-MM-dd")}</TableCell>
+                                    <TableCell className='border-2 py-5'>{bookingData.Data?.CheckoutDate ? format(new Date(bookingData.Data.CheckoutDate), "yyyy-MM-dd") : 'N/A'}</TableCell>
                                 </TableRow>
                                 <TableRow key="3">
                                     <TableCell className='border-2 py-5 font-bold'>Loại phòng</TableCell>
-                                    <TableCell className='border-2 py-5'>{bookingData.Data.RoomType.Name}</TableCell>
+                                    <TableCell className='border-2 py-5'>{bookingData.Data?.RoomType?.Name || 'N/A'}</TableCell>
                                     <TableCell className='border-2 py-5 font-bold'>Giá phòng</TableCell>
-                                    <TableCell className='border-2 py-5'>{bookingData.Data.RoomType.Price},000 VND</TableCell>
+                                    <TableCell className='border-2 py-5'>{bookingData.Data?.RoomType?.Price ? `${bookingData.Data.RoomType.Price},000 VND` : 'N/A'}</TableCell>
                                 </TableRow>
                                 <TableRow key="4">
                                     <TableCell className='border-2 py-5 font-bold'>Thời gian đặt phòng</TableCell>
-                                    <TableCell className='border-2 py-5'><span>{format(new Date(bookingData.Data.RoomType.CreateAt), "yyyy-MM-dd")}</span></TableCell>
+                                    <TableCell className='border-2 py-5'>{bookingData.Data?.RoomType?.CreateAt ? format(new Date(bookingData.Data.RoomType.CreateAt), "yyyy-MM-dd") : 'N/A'}</TableCell>
                                     <TableCell className='border-2 py-5 font-bold'>Trạng thái</TableCell>
-                                    <TableCell className='border-2 py-5'>{statusMap[bookingData.Data.Status] || 'Unknown'}</TableCell>
+                                    <TableCell className='border-2 py-5'>{statusMap[bookingData.Data?.Status] || 'Unknown'}</TableCell>
                                 </TableRow>
                             </TableBody>
                         </Table>
@@ -122,10 +122,10 @@ const HeaderTable = () => {
                                         bookingData?.Data?.BookingItems?.map((bookingItem: any, index: any) => (
                                             <tr key={index}>
                                                 <td className="border-2 py-5">{index + 1}</td>
-                                                <td className="border-2 py-5">{bookingItem.Item.Name}</td>
-                                                <td className="border-2 py-5">{bookingItem.Item.Price},000 VND</td>
-                                                <td className="border-2 py-5">{bookingItem.Quantity}</td>
-                                                <td className="border-2 py-5">{bookingItem.Item.Price * bookingItem.Quantity},000 VND</td>
+                                                <td className="border-2 py-5">{bookingItem.Item?.Name || 'N/A'}</td>
+                                                <td className="border-2 py-5">{bookingItem.Item?.Price ? `${bookingItem.Item.Price},000 VND` : 'N/A'}</td>
+                                                <td className="border-2 py-5">{bookingItem.Quantity || 'N/A'}</td>
+                                                <td className="border-2 py-5">{bookingItem.Item?.Price && bookingItem.Quantity ? `${bookingItem.Item.Price * bookingItem.Quantity},000 VND` : 'N/A'}</td>
                                             </tr>
                                         ))
                                     )}
@@ -192,6 +192,7 @@ const HeaderTable = () => {
             </div>
         </div>
     )
+    
     
 }
 
