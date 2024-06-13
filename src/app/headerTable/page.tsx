@@ -40,18 +40,18 @@ const HeaderTable = () => {
 
     if (!bookingData) return null;
 
-    const totalServiceCost = bookingData && bookingData.Data && Array.isArray(bookingData.Data.BookingItems)
+    const totalServiceCost = bookingData && bookingData.Data && Array.isArray(bookingData.Data?.BookingItems)
     ? bookingData.Data.BookingItems.reduce((total: number, bookingItem: any) => {
         return total + (bookingItem.Item?.Price * bookingItem?.Quantity);
     }, 0)
     : 0;
 
-    const checkInDate = new Date(bookingData.Data.CheckinDate);
-    const checkOutDate = new Date(bookingData.Data.CheckoutDate);
+    const checkInDate = new Date(bookingData.Data?.CheckinDate);
+    const checkOutDate = new Date(bookingData.Data?.CheckoutDate);
     const timeDifference = checkOutDate.getTime() - checkInDate.getTime()
     const daysStayed = timeDifference / (1000 * 3600 * 24)
 
-    const roomRate = bookingData.Data.RoomType.Price;
+    const roomRate = bookingData.Data.RoomType?.Price;
     const totalRoomCost = daysStayed * roomRate;
 
     // const totalCost = bookingData.Data.RoomType.Price + totalServiceCost;
