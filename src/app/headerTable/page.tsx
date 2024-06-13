@@ -90,11 +90,11 @@ const HeaderTable = () => {
                                     <TableCell className='border-2 py-5 font-bold'>Loại phòng</TableCell>
                                     <TableCell className='border-2 py-5'>{bookingData.Data?.RoomType?.Name || 'N/A'}</TableCell>
                                     <TableCell className='border-2 py-5 font-bold'>Giá phòng</TableCell>
-                                    <TableCell className='border-2 py-5'>{bookingData.Data?.RoomType?.Price ? `${bookingData.Data.RoomType.Price},000 VND` : 'N/A'}</TableCell>
+                                    <TableCell className='border-2 py-5'>{bookingData.Data?.RoomType?.Price ? `${bookingData.Data?.RoomType.Price},000 VND` : 'N/A'}</TableCell>
                                 </TableRow>
                                 <TableRow key="4">
                                     <TableCell className='border-2 py-5 font-bold'>Thời gian đặt phòng</TableCell>
-                                    <TableCell className='border-2 py-5'>{bookingData.Data?.RoomType?.CreateAt ? format(new Date(bookingData.Data.RoomType.CreateAt), "yyyy-MM-dd") : 'N/A'}</TableCell>
+                                    <TableCell className='border-2 py-5'>{bookingData.Data?.RoomType?.CreateAt ? format(new Date(bookingData.Data?.RoomType.CreateAt), "yyyy-MM-dd") : 'N/A'}</TableCell>
                                     <TableCell className='border-2 py-5 font-bold'>Trạng thái</TableCell>
                                     <TableCell className='border-2 py-5'>{statusMap[bookingData.Data?.Status] || 'Unknown'}</TableCell>
                                 </TableRow>
