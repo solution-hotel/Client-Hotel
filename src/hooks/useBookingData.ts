@@ -93,7 +93,7 @@ interface BookingData {
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const useBookingData = (id: number) => {
-    const { data, error } = useSWR<BookingData>(`https://api-pnv.bluejaypos.vn/booking/${id}`, fetcher);
+    const { data, error } = useSWR<BookingData>(`https://api-pnv.bluejaypos.vn/booking/36`, fetcher);
 
     return {
         bookingData: data,
