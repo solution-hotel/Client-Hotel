@@ -18,7 +18,7 @@ const HeaderTable = () => {
         setShowChat(!showChat);
     }
 
-    const statusMap: {[key: number] : string} = {
+    const statusMap: { [key: number]: string } = {
         1: 'Confirmed',
         2: 'Checkin',
         3: 'Checkout',
@@ -31,8 +31,6 @@ const HeaderTable = () => {
     const id = parseInt(searchParams.get("id") || "1", 10);
 
     const { bookingData, isLoading, isError } = useBookingData(id);
-    
-    // const { bookingItems, isLoadings, isErrors } = useBookingItems();
 
     console.log('Dữ liệu đặt phòng:', bookingData);
 
@@ -41,25 +39,25 @@ const HeaderTable = () => {
     if (!bookingData) return null;
 
     const totalServiceCost = bookingData && bookingData.Data && Array.isArray(bookingData.Data?.BookingItems)
-    ? bookingData.Data.BookingItems.reduce((total: number, bookingItem: any) => {
-        return total + (bookingItem.Item?.Price * bookingItem?.Quantity);
-    }, 0)
-    : 0;
+        ? bookingData.Data.BookingItems.reduce((total: number, bookingItem: any) => {
+            return total + (bookingItem.Item?.Price * bookingItem?.Quantity);
+        }, 0)
+        : 0;
+
+    let totalRoomCost = 0;
+    let totalCost = 0;
 
     const checkInDate = new Date(bookingData.Data?.CheckinDate);
     const checkOutDate = new Date(bookingData.Data?.CheckoutDate);
- if (checkInDate && checkOutDate){
-    const timeDifference = checkOutDate.getTime() - checkInDate.getTime()
-    const daysStayed = timeDifference / (1000 * 3600 * 24)
+    if (checkInDate && checkOutDate) {
+        const timeDifference = checkOutDate.getTime() - checkInDate.getTime();
+        const daysStayed = timeDifference / (1000 * 3600 * 24);
 
-    const roomRate = bookingData.Data?.RoomType?.Price;
-    const totalRoomCost = daysStayed * roomRate;
+        const roomRate = bookingData.Data?.RoomType?.Price;
+        totalRoomCost = daysStayed * roomRate;
 
-    // const totalCost = bookingData.Data.RoomType.Price + totalServiceCost;
-    const totalCost = totalRoomCost + totalServiceCost;
-    // const roomPrice = bookingData.Data.RoomType.Price;
- }
-    
+        totalCost = totalRoomCost + totalServiceCost;
+    }
 
     return (
         <div className='container'>
@@ -142,12 +140,12 @@ const HeaderTable = () => {
                                 <div className='font-bold'>Tiền phòng:</div>
                                 <span>{totalRoomCost},000 VND</span>
                             </div>
-    
+
                             <div className='flex justify-between'>
                                 <div className='font-bold'>Tiền dịch vụ:</div>
                                 <span>{totalServiceCost},000 VND</span>
                             </div>
-    
+
                             <div className='flex justify-between'>
                                 <div className='font-bold'>Tổng tiền:</div>
                                 <span>{totalCost},000 VND</span>
@@ -195,8 +193,6 @@ const HeaderTable = () => {
             </div>
         </div>
     )
-    
-    
 }
 
 export default HeaderTable;
