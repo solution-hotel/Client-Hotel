@@ -53,7 +53,7 @@ const HeaderTable = () => {
         const timeDifference = checkOutDate.getTime() - checkInDate.getTime();
         const daysStayed = timeDifference / (1000 * 3600 * 24);
 
-        const roomRate = bookingData.Data?.RoomType?.Price;
+        const roomRate = bookingData.Data?.RoomType.Price;
         totalRoomCost = daysStayed * roomRate;
 
         totalCost = totalRoomCost + totalServiceCost;
@@ -138,17 +138,17 @@ const HeaderTable = () => {
                         <div className='' style={{ width: '20%' }}>
                             <div className='flex justify-between '>
                                 <div className='font-bold'>Tiền phòng:</div>
-                                <span>{totalRoomCost},000 VND</span>
+                                <span>{totalRoomCost ? `${totalRoomCost},000 VNĐ` : "N/A"}</span>
                             </div>
 
                             <div className='flex justify-between'>
                                 <div className='font-bold'>Tiền dịch vụ:</div>
-                                <span>{totalServiceCost},000 VND</span>
+                                <span>{totalServiceCost ? `${totalServiceCost},000 VNĐ` : "N/A"}</span>
                             </div>
 
                             <div className='flex justify-between'>
                                 <div className='font-bold'>Tổng tiền:</div>
-                                <span>{totalCost},000 VND</span>
+                                <span>{totalCost ? `${totalCost},000 VNĐ` : "N/A"}</span>
                             </div>
                         </div>
                     </div>
