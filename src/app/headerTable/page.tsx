@@ -1,22 +1,47 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ChatPage from '../ChatPage/page';
 import { BsChatFill } from 'react-icons/bs';
 import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from "@nextui-org/table";
 import useBookingData from '../../hooks/useBookingData';
 import { useParams, useSearchParams } from 'next/navigation';
 import { format } from "date-fns";
+import { useRouter } from 'next/router'
+import useSWR from 'swr';
+import { fetcher } from '@/app/utils/fetcher';
+import { getExtraItems } from "../utils/api/extraitems"
 
-// interface HeaderTableProps {
-//     id: number;
-// }
 
 const HeaderTable = () => {
     const [showChat, setShowChat] = useState(false);
+    const [extraItems, setExtraItems] = useState([])
+    
     const toggleChat = () => {
         setShowChat(!showChat);
     }
+
+    useEffect(() => {
+        let isMouted = true;
+
+        const fetchData = async () => {
+            try {
+                const data = await getExtraItems();
+                setExtraItems(data.Data);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        if (isMouted) {
+            fetchData();
+            isMouted = false;
+        }
+        return () => {
+            isMouted = false;
+        }
+
+    }, []);
 
     const statusMap: { [key: number]: string } = {
         1: 'Confirmed',
@@ -26,21 +51,27 @@ const HeaderTable = () => {
         5: 'Canceled'
     }
 
-    const searchParams = useSearchParams();
+    const searchParams = useSearchParams()
+    const id = searchParams.get('id');
 
-    const id = parseInt(searchParams.get("id") || "1", 10);
+    const { data: bookingData, error } = useSWR(`https://api-pnv.bluejaypos.vn/booking/${id}`,
+        fetcher
+    );
 
-    const { bookingData, isLoading, isError } = useBookingData(id);
-
+    useEffect(() => {
+        console.log('ID changed:', id);
+    }, [id]);
     console.log('Dữ liệu đặt phòng:', bookingData);
 
-    if (isError) return <div>Error loading booking data.</div>;
+    console.log("Dữ liệu của extra items", extraItems);
+
+
 
     if (!bookingData) return null;
 
     const totalServiceCost = bookingData && bookingData.Data && Array.isArray(bookingData.Data?.BookingItems)
-        ? bookingData.Data.BookingItems.reduce((total: number, bookingItem: any) => {
-            return total + (bookingItem.Item?.Price * bookingItem?.Quantity);
+        ? bookingData.Data?.BookingItems.reduce((total: number, bookingItem: any) => {
+            return total + (bookingItem.TotalPrice);
         }, 0)
         : 0;
 
@@ -115,20 +146,43 @@ const HeaderTable = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {bookingData?.Data?.BookingItems?.length === 0 ? (
-                                        <tr>
-                                            <td className="border-2 py-5" colSpan={5}>Không có Data</td>
-                                        </tr>
+                                    {bookingData?.Data?.BookingItems?.length > 0 ? (
+                                        bookingData?.Data?.BookingItems?.map((bookingItem: any, i: any) => {
+                                            const item = extraItems.find(
+                                                (item: any) => item.id === bookingItem.ItemId
+                                            );
+
+                                            if (!item) {
+                                                return null;
+                                            }
+
+                                            return (
+                                                <tr
+                                                    key={i}
+                                                    className="bg-white border-b hover:bg-gray-50 dark:hover:bg-gray-300"
+                                                >
+                                                    <th
+                                                        scope="row"
+                                                        className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-black"
+                                                    >
+                                                        {i + 1}
+                                                    </th>
+                                                    <td className="px-6 py-4">{(item as any)?.name}</td>
+                                                    <td className="px-6 py-4">{(item as any)?.price.toFixed(3) + ' VNĐ'}</td>
+                                                    <td className="px-6 py-4">{bookingItem.Quantity}</td>
+                                                    <td className="px-6 py-4">{bookingItem.TotalPrice.toFixed(3) + ' VNĐ'}</td>
+                                                </tr>
+                                            );
+                                        })
                                     ) : (
-                                        bookingData?.Data?.BookingItems?.map((bookingItem: any, index: any) => (
-                                            <tr key={index}>
-                                                <td className="border-2 py-5">{index + 1}</td>
-                                                <td className="border-2 py-5">{bookingItem.Item?.Name || 'N/A'}</td>
-                                                <td className="border-2 py-5">{bookingItem.Item?.Price ? `${bookingItem.Item.Price},000 VND` : 'N/A'}</td>
-                                                <td className="border-2 py-5">{bookingItem.Quantity || 'N/A'}</td>
-                                                <td className="border-2 py-5">{bookingItem.Item?.Price && bookingItem.Quantity ? `${bookingItem.Item.Price * bookingItem.Quantity},000 VND` : 'N/A'}</td>
-                                            </tr>
-                                        ))
+                                        <tr>
+                                            <td
+                                                colSpan={5}
+                                                className="px-6 py-4 text-center font-medium text-gray-500 dark:text-gray-400"
+                                            >
+                                                Khách hàng không sử dụng dịch vụ gì
+                                            </td>
+                                        </tr>
                                     )}
                                 </tbody>
                             </table>
@@ -138,17 +192,17 @@ const HeaderTable = () => {
                         <div className='' style={{ width: '20%' }}>
                             <div className='flex justify-between '>
                                 <div className='font-bold'>Tiền phòng:</div>
-                                <span>{totalRoomCost ? `${totalRoomCost},000 VNĐ` : "N/A"}</span>
+                                <span>{totalRoomCost ? totalRoomCost.toLocaleString('en-US', { minimumFractionDigits: 3 }) + ' VNĐ' : "N/A"}</span>
                             </div>
 
                             <div className='flex justify-between'>
                                 <div className='font-bold'>Tiền dịch vụ:</div>
-                                <span>{totalServiceCost ? `${totalServiceCost},000 VNĐ` : "N/A"}</span>
+                                <span>{totalServiceCost ? totalServiceCost.toLocaleString('en-US', { minimumFractionDigits: 3 }) + ' VNĐ' : "N/A"}</span>
                             </div>
 
                             <div className='flex justify-between'>
                                 <div className='font-bold'>Tổng tiền:</div>
-                                <span>{totalCost ? `${totalCost},000 VNĐ` : "N/A"}</span>
+                                <span>{totalCost ? totalCost.toLocaleString('en-US', { minimumFractionDigits: 3 }) + ' VNĐ' : "N/A"}</span>
                             </div>
                         </div>
                     </div>
@@ -181,10 +235,12 @@ const HeaderTable = () => {
                     </div>
                     <div className="relative">
                         <button
-                            className='flex items-center border-2 w-full md:w-40 sm:w-40 rounded-3xl bg-black text-white justify-center shadow-2xl py-2'
+                            className="flex items-center border-2 w-full md:w-40 sm:w-40 rounded-3xl bg-black text-white justify-center shadow-2xl py-2"
                             onClick={toggleChat}
                         >
-                            <div className="mr-2"><BsChatFill /></div>
+                            <div className="mr-2">
+                                <BsChatFill />
+                            </div>
                             <div className="font-bold">Chat</div>
                         </button>
                         {showChat && <ChatPage />}
