@@ -14,8 +14,8 @@ const HeaderMain = () => {
   const id = parseInt(searchParams.get("id") || "1", 10);
   const { bookingData, isLoading, isError } = useBookingData(id);
 
-  const guestName = bookingData?.Data?.Guest?.LastName ? (
-    <b><i>{bookingData.Data.Guest.LastName}</i></b>
+  const guestName = bookingData?.Data?.Guest?.FirstName && bookingData?.Data?.Guest?.LastName ? (
+    <b><i>{bookingData?.Data.Guest.FirstName} {bookingData?.Data.Guest.LastName}</i></b>
   ) : null ;
 
   return (
