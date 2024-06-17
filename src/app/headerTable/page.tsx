@@ -97,10 +97,10 @@ const HeaderTable = () => {
                     <div>
                         <Table className='mt-10 text-center'>
                             <TableHeader className='w-full'>
-                                <TableColumn className='border-2 py-5 bg-[#F3E07B]'>Mã Booking</TableColumn>
-                                <TableColumn className='border-2 font-normal bg-[#F3E07B]'>{bookingData.Data?.Id || 'N/A'}</TableColumn>
-                                <TableColumn className='border-2 bg-[#F3E07B]'>Tên khách hàng</TableColumn>
-                                <TableColumn className='border-2 font-normal bg-[#F3E07B]'>{bookingData.Data?.Guest?.FirstName} {bookingData.Data?.Guest?.LastName || 'N/A'}</TableColumn>
+                                <TableColumn className='border-2 py-5 bg-[#D9D9D9]'>Mã Booking</TableColumn>
+                                <TableColumn className='border-2 font-normal bg-[#D9D9D9]'>{bookingData.Data?.Id || 'N/A'}</TableColumn>
+                                <TableColumn className='border-2 bg-[#D9D9D9]'>Tên khách hàng</TableColumn>
+                                <TableColumn className='border-2 font-normal bg-[#D9D9D9]'>{bookingData.Data?.Guest?.FirstName} {bookingData.Data?.Guest?.LastName || 'N/A'}</TableColumn>
                             </TableHeader>
                             <TableBody className='justify-center'>
                                 <TableRow key="1">
