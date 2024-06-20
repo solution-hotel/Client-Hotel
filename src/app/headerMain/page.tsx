@@ -24,7 +24,7 @@ const HeaderMain = () => {
         <div className="font-bold text-3xl sm:pb-0 text-blackish mb-5">
           Thông tin đặt phòng
         </div>
-        <p>Xin chào<b><i>{guestName},</i></b> cảm ơn quý khách đã lựa chọn <b><i className='text-blue'>BlueHouse.</i></b>  <br />
+        <p>Xin chào <b><i>{guestName},</i></b> cảm ơn quý khách đã lựa chọn <b><i className='text-blue'>BlueHouse.</i></b>  <br />
           Đây là thông tin đặt phòng của bạn</p>
       </div>
     </div>
