@@ -54,7 +54,7 @@ const HeaderTable = () => {
     const searchParams = useSearchParams()
     const id = searchParams.get('id');
 
-    const { data: bookingData, error } = useSWR(`https://api-pnv.bluejaypos.vn/booking/${id}`,
+    const { data: bookingData, error } = useSWR(`https://api-pnv.bluejaypos.vn/booking/36`,
         fetcher
     );
 
@@ -100,14 +100,14 @@ const HeaderTable = () => {
                                 <TableColumn className='border-2 py-5 bg-[#D9D9D9]'>Mã Booking</TableColumn>
                                 <TableColumn className='border-2 font-normal bg-[#D9D9D9]'>{bookingData.Data?.Id || 'N/A'}</TableColumn>
                                 <TableColumn className='border-2 bg-[#D9D9D9]'>Tên khách hàng</TableColumn>
-                                <TableColumn className='border-2 font-normal bg-[#D9D9D9]'>{bookingData.Data?.Guest?.FirstName} {bookingData.Data?.Guest?.LastName || 'N/A'}</TableColumn>
+                                <TableColumn className='border-2 font-normal bg-[#D9D9D9]'>{bookingData.Data?.Guest?.LastName} {bookingData.Data?.Guest?.FirstName || 'N/A'}</TableColumn>
                             </TableHeader>
                             <TableBody className='justify-center'>
                                 <TableRow key="1">
                                     <TableCell className='border-2 py-5 font-bold'>Số điện thoại</TableCell>
                                     <TableCell className='border-2 py-5'>{bookingData.Data?.Guest?.PhoneNumber || 'N/A'}</TableCell>
                                     <TableCell className='border-2 py-5 font-bold'>Email</TableCell>
-                                    <TableCell className='border-2 py-5'>{bookingData.Data?.Guest?.Email || 'N/A'}</TableCell>
+                                    <TableCell className='border-2 py-5 px-5'>{bookingData.Data?.Guest?.Email || 'N/A'}</TableCell>
                                 </TableRow>
                                 <TableRow key="2">
                                     <TableCell className='border-2 py-5 font-bold'>Ngày nhận phòng</TableCell>

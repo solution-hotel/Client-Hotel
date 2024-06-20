@@ -14,8 +14,8 @@ const HeaderMain = () => {
   const id = parseInt(searchParams.get("id") || "1", 10);
   const { bookingData, isLoading, isError } = useBookingData(id);
 
-  const guestName = bookingData?.Data?.Guest?.FirstName && bookingData?.Data?.Guest?.LastName ? (
-    <b><i>{bookingData?.Data.Guest.FirstName} {bookingData?.Data.Guest.LastName}</i></b>
+  const guestName = bookingData?.Data?.Guest?.LastName && bookingData?.Data?.Guest?.FirstName ? (
+    <b><i>{bookingData?.Data.Guest.LastName} {bookingData?.Data.Guest.FirstName}</i></b>
   ) : null ;
 
   return (
@@ -24,7 +24,7 @@ const HeaderMain = () => {
         <div className="font-bold text-3xl sm:pb-0 text-blackish mb-5">
           Thông tin đặt phòng
         </div>
-        <p>Xin chào <b><i>{guestName},</i></b> cảm ơn quý khách đã lựa chọn <b><i className='text-blue'>BlueHouse.</i></b>  <br />
+        <p>Xin chào<b><i>{guestName},</i></b> cảm ơn quý khách đã lựa chọn <b><i className='text-blue'>BlueHouse.</i></b>  <br />
           Đây là thông tin đặt phòng của bạn</p>
       </div>
     </div>
