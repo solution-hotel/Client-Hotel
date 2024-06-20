@@ -54,7 +54,7 @@ const HeaderTable = () => {
     const searchParams = useSearchParams()
     const id = searchParams.get('id');
 
-    const { data: bookingData, error } = useSWR(`https://api-pnv.bluejaypos.vn/booking/36`,
+    const { data: bookingData, error } = useSWR(`https://api-pnv.bluejaypos.vn/booking/${id}`,
         fetcher
     );
 
