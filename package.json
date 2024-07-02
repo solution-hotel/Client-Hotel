@@ -9,9 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@livekit/components-react": "^2.3.3",
+    "@livekit/components-styles": "^1.0.12",
+    "@nextui-org/react": "^2.4.2",
     "@nextui-org/table": "^2.0.33",
     "@reduxjs/toolkit": "^2.2.5",
     "date-fns": "^3.6.0",
+    "livekit-server-sdk": "^2.5.0",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",

@@ -1,5 +1,6 @@
 export const getExtraItems = async () => {
-    const url = "https://api-pnv.bluejaypos.vn/extraitems/getall"
+    const url = "http://192.168.1.114:83/extraitems/getall"
+    // const url = "https://api-pnv.bluejaypos.vn/extraitems/getall"
 
     const response = await fetch (url, {
         headers: {

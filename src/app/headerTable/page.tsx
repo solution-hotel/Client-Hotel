@@ -16,7 +16,7 @@ import { getExtraItems } from "../utils/api/extraitems"
 const HeaderTable = () => {
     const [showChat, setShowChat] = useState(false);
     const [extraItems, setExtraItems] = useState([])
-    
+
     const toggleChat = () => {
         setShowChat(!showChat);
     }
@@ -54,7 +54,7 @@ const HeaderTable = () => {
     const searchParams = useSearchParams()
     const id = searchParams.get('id');
 
-    const { data: bookingData, error } = useSWR(`https://api-pnv.bluejaypos.vn/booking/${id}`,
+    const { data: bookingData, error } = useSWR(`http://192.168.1.114:83/booking/36`,
         fetcher
     );
 
@@ -119,7 +119,7 @@ const HeaderTable = () => {
                                     <TableCell className='border-2 py-5 font-bold'>Loại phòng</TableCell>
                                     <TableCell className='border-2 py-5'>{bookingData.Data?.RoomType?.Name || 'N/A'}</TableCell>
                                     <TableCell className='border-2 py-5 font-bold'>Giá phòng</TableCell>
-                                    <TableCell className='border-2 py-5'>{bookingData.Data?.RoomType?.Price ? `${bookingData.Data?.RoomType.Price},000 VND` : 'N/A'}</TableCell>
+                                    <TableCell className='border-2 py-5'>{bookingData.Data?.RoomType?.Price ? `${bookingData.Data?.RoomType.Price.toLocaleString('en-US')} VND` : 'N/A'}</TableCell>
                                 </TableRow>
                                 <TableRow key="4">
                                     <TableCell className='border-2 py-5 font-bold'>Thời gian đặt phòng</TableCell>
@@ -130,79 +130,74 @@ const HeaderTable = () => {
                             </TableBody>
                         </Table>
                     </div>
-                    <div className='py-6'>
-                        <div className='font-bold text-3xl text-center mt-10'>
-                            Dịch vụ bạn đã sử dụng
-                        </div>
-                        <div>
-                            <table className="mt-10 text-center border-collapse w-full">
-                                <thead>
-                                    <tr>
-                                        <th className="border-2 bg-[#F3E07B] py-5">N.O</th>
-                                        <th className="border-2 bg-[#F3E07B]">Dịch Vụ</th>
-                                        <th className="border-2 bg-[#F3E07B]">Giá Tiền</th>
-                                        <th className="border-2 bg-[#F3E07B]">Số Lượng</th>
-                                        <th className="border-2 bg-[#F3E07B]">Tổng Tiền</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {bookingData?.Data?.BookingItems?.length > 0 ? (
-                                        bookingData?.Data?.BookingItems?.map((bookingItem: any, i: any) => {
-                                            const item = extraItems.find(
-                                                (item: any) => item.id === bookingItem.ItemId
-                                            );
-
-                                            if (!item) {
-                                                return null;
-                                            }
-
-                                            return (
-                                                <tr
-                                                    key={i}
-                                                    className="bg-white border-b hover:bg-gray-50 dark:hover:bg-gray-300"
-                                                >
-                                                    <th
-                                                        scope="row"
-                                                        className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-black"
-                                                    >
-                                                        {i + 1}
-                                                    </th>
-                                                    <td className="px-6 py-4">{(item as any)?.name}</td>
-                                                    <td className="px-6 py-4">{(item as any)?.price.toFixed(3) + ' VNĐ'}</td>
-                                                    <td className="px-6 py-4">{bookingItem.Quantity}</td>
-                                                    <td className="px-6 py-4">{bookingItem.TotalPrice.toFixed(3) + ' VNĐ'}</td>
-                                                </tr>
-                                            );
-                                        })
-                                    ) : (
+                    {bookingData.Data?.BookingItems?.length > 0 ? (
+                        <div className='py-2 roomCost'>
+                            <div className='font-bold text-3xl text-center mt-10'>
+                                Dịch vụ bạn đã sử dụng
+                            </div>
+                            <div>
+                                <table className="mt-10 text-center border-collapse w-full">
+                                    <thead>
                                         <tr>
-                                            <td
-                                                colSpan={5}
-                                                className="px-6 py-4 text-center font-medium text-gray-500 dark:text-gray-400"
-                                            >
-                                                Khách hàng không sử dụng dịch vụ gì
-                                            </td>
+                                            <th className="border-2 bg-[#F3E07B] py-5">N.O</th>
+                                            <th className="border-2 bg-[#F3E07B]">Dịch Vụ</th>
+                                            <th className="border-2 bg-[#F3E07B]">Giá Tiền</th>
+                                            <th className="border-2 bg-[#F3E07B]">Số Lượng</th>
+                                            <th className="border-2 bg-[#F3E07B]">Tổng Tiền</th>
                                         </tr>
-                                    )}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        {bookingData?.Data?.BookingItems?.length > 0 && (
+                                            bookingData?.Data?.BookingItems?.map((bookingItem: any, i: any) => {
+                                                const item = extraItems.find(
+                                                    (item: any) => item.id === bookingItem.ItemId
+                                                );
+
+                                                if (!item) {
+                                                    return null;
+                                                }
+
+                                                return (
+                                                    <tr
+                                                        key={i}
+                                                        className="bg-white border-b hover:bg-gray-50 dark:hover:bg-gray-300"
+                                                    >
+                                                        <th
+                                                            scope="row"
+                                                            className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-black"
+                                                        >
+                                                            {i + 1}
+                                                        </th>
+                                                        <td className="px-6 py-4">{(item as any)?.name}</td>
+                                                        <td className="px-6 py-4">{(item as any)?.price.toLocaleString('en-US') + ' VNĐ'}</td>
+                                                        <td className="px-6 py-4">{bookingItem.Quantity}</td>
+                                                        <td className="px-6 py-4">{bookingItem.TotalPrice.toLocaleString('en-US') + ' VNĐ'}</td>
+                                                    </tr>
+                                                );
+                                            })
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                    <div className='bg-test p-5' style={{ width: '100%' }}>
+                    ) : (
+                        console.log("Khách hàng không sử dụng dịch vụ gì.")
+                    )}
+                    <div className='bg-test p-5 mt-10' style={{ width: '100%' }}>
                         <div className='' style={{ width: '20%' }}>
                             <div className='flex justify-between '>
                                 <div className='font-bold'>Tiền phòng:</div>
-                                <span>{totalRoomCost ? totalRoomCost.toLocaleString('en-US', { minimumFractionDigits: 3 }) + ' VNĐ' : "N/A"}</span>
+                                <span>{totalRoomCost ? totalRoomCost.toLocaleString('en-US') + ' VNĐ' : "N/A"}</span>
                             </div>
 
                             <div className='flex justify-between'>
                                 <div className='font-bold'>Tiền dịch vụ:</div>
-                                <span>{totalServiceCost ? totalServiceCost.toLocaleString('en-US', { minimumFractionDigits: 3 }) + ' VNĐ' : "N/A"}</span>
+                                <span>{totalServiceCost ? totalServiceCost.toLocaleString('en-US') + ' VNĐ' : "N/A"}</span>
                             </div>
 
                             <div className='flex justify-between'>
                                 <div className='font-bold'>Tổng tiền:</div>
-                                <span>{totalCost ? totalCost.toLocaleString('en-US', { minimumFractionDigits: 3 }) + ' VNĐ' : "N/A"}</span>
+                                <span>{totalCost ? totalCost.toLocaleString('en-US') + ' VNĐ' : "N/A"}</span>
                             </div>
                         </div>
                     </div>
@@ -233,9 +228,10 @@ const HeaderTable = () => {
                         <div className='flex'>SDT: <p className='mx-10'>(+84) 907 837 092</p></div>
                         <div className='flex'>Email: <p className='mx-10'>info@gmail.com</p></div>
                     </div>
-                    <div className="relative">
+                    <div className="fixed bottom-0 right-0 m-6">
                         <button
-                            className="flex items-center border-2 w-full md:w-40 sm:w-40 rounded-3xl bg-black text-white justify-center shadow-2xl py-2"
+                            className="flex items-center border-2 z-40 w-full md:w-40 sm:w-40 rounded-3xl bg-black text-white 
+                            justify-center shadow-2xl py-2 hover:bg-gray-600"
                             onClick={toggleChat}
                         >
                             <div className="mr-2">
