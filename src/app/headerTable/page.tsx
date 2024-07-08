@@ -54,7 +54,10 @@ const HeaderTable = () => {
     const searchParams = useSearchParams()
     const id = searchParams.get('id');
 
-    const { data: bookingData, error } = useSWR(`http://192.168.1.114:83/booking/36`,
+    // const { data: bookingData, error } = useSWR(`http://192.168.1.114:83/booking/38`,
+    //     fetcher
+    // );
+    const { data: bookingData, error } = useSWR(`http://api-pnv.bluejaypos.vn/booking/36`,
         fetcher
     );
 
@@ -62,9 +65,7 @@ const HeaderTable = () => {
         console.log('ID changed:', id);
     }, [id]);
     console.log('Dữ liệu đặt phòng:', bookingData);
-
     console.log("Dữ liệu của extra items", extraItems);
-
 
 
     if (!bookingData) return null;
