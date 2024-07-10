@@ -57,7 +57,7 @@ const HeaderTable = () => {
     // const { data: bookingData, error } = useSWR(`http://192.168.1.114:83/booking/38`,
     //     fetcher
     // );
-    const { data: bookingData, error } = useSWR(`http://api-pnv.bluejaypos.vn/booking/${id}`,
+    const { data: bookingData, error } = useSWR(`http://api-pnv.bluejaypos.vn/booking/38`,
         fetcher
     );
 
