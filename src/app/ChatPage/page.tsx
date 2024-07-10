@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { IoCloseSharp, IoSend } from "react-icons/io5";
